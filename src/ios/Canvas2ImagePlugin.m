@@ -22,9 +22,11 @@
 - (void)saveImageDataToLibrary:(CDVInvokedUrlCommand*)command
 {
     self.callbackId = command.callbackId;
-	NSData* imageData = [NSData dataFromBase64String:[command.arguments objectAtIndex:0]];
+	// NSData* imageData = [NSData dataFromBase64String:[command.arguments objectAtIndex:0]];
+	// UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
 	
-	UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];	
+	NSString *imagePath = [command.arguments objectAtIndex:0];
+	UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
 	UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
 	
 }
